@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'pages/home_page.dart';
 import 'pages/intro/intro_page.dart';
 
@@ -15,6 +14,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'intro_page',
       routes: {
         'intro_page': (context) => const IntroPage(),
+        'home_page': (context) => const HomePage(),
       },
     );
   }
