@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tep_app/pages/login_page/login_page.dart';
 import 'pages/home_page.dart';
 import 'pages/intro/intro_page.dart';
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'intro_page': (context) => const IntroPage(),
         'home_page': (context) => const HomePage(),
+        'login_page': (context) => LoginPage(),
       },
     );
   }

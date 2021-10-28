@@ -13,20 +13,6 @@ class _HomePageState extends State<HomePage> {
     var displaySize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 10, top: 7),
-            height: 50,
-            width: 50,
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.login,
-                size: displaySize.height / 100 * 3.3,
-              ),
-            ),
-          ),
-        ],
         backgroundColor: Colors.purple.shade600,
         title: const Text('T.E.P'),
         centerTitle: true,
@@ -54,7 +40,9 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       'Talabalarning\nElektron\nPoliklinikasi',
                       style: TextStyle(
-                          color: Colors.purple.shade600, fontSize: 36),
+                        color: Colors.purple.shade600,
+                        fontSize: 36,
+                      ),
                     ),
                   ),
                 ],
@@ -68,10 +56,36 @@ class _HomePageState extends State<HomePage> {
         width: displaySize.width / 100 * 70,
         color: Colors.white,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              height: displaySize.height / 100 * 15,
-              color: Colors.blue,
+              height: displaySize.height / 100 * 20,
+              color: Colors.purple.shade600,
+            ),
+            Expanded(
+              child: Container(),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: displaySize.height / 100 * 3,
+                  left: displaySize.width / 100 * 4),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, 'login_page');
+                },
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.logout,
+                      size: 30,
+                    ),
+                    Text(
+                      'LogOut',
+                      style: TextStyle(fontSize: displaySize.width / 100 * 4.5),
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),

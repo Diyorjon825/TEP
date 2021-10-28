@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
 
 class InfoPage {
-  String title, image;
-  InfoPage(this.title, this.image);
+  String image, title, title2;
+  InfoPage(this.title, this.title2, this.image);
 }
-
-List<InfoPage> infoPages = [
-  InfoPage(
-    "Biz kelajagimiz egalarining solomatligi uchun mas'ulmiz",
-    'assets/images/doctor_PNG16022.png',
-  ),
-  InfoPage(
-    "Enjoy lifetime access to courses on Udemy’s website and app",
-    'assets/images/doctor_PNG16022.png',
-  ),
-];
 
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -37,6 +26,19 @@ class _IntroPageState extends State<IntroPage> {
     super.dispose();
     _pageController.dispose();
   }
+
+  List<InfoPage> infoPages = [
+    InfoPage(
+      "Biz kelajagimiz egalarining salomatligi uchun javobgarmiz",
+      '',
+      'assets/images/doctor_PNG16022.png',
+    ),
+    InfoPage(
+      "TeleMed online tibbiyot platformasi tarmog'i tarkibidagi ",
+      "Talabalarning Elektron Poliklinikasi",
+      'assets/images/inro2.png',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,7 @@ class _IntroPageState extends State<IntroPage> {
             child: (currentPage == infoPages.length - 1)
                 ? TextButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, 'home_page');
+                      Navigator.pushReplacementNamed(context, 'login_page');
                     },
                     child: Text(
                       "Ro'yhatdan o'tish",
@@ -124,27 +126,50 @@ class PageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var displaySize = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60),
+      padding: EdgeInsets.symmetric(horizontal: displaySize.width / 100 * 5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(height: displaySize.height / 100 * 12),
           SizedBox(
-            height: displaySize.height / 100 * 48,
+            height: displaySize.height / 100 * 40,
             child: Image(
               image: AssetImage(info.image),
-              fit: BoxFit.cover,
+              // fit: BoxFit.cover,
             ),
           ),
-          SizedBox(height: displaySize.height / 100 * 2),
-          Text(
-            info.title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          SizedBox(height: displaySize.height / 100 * 3),
+          (info.title2.isEmpty)
+              ? Text(
+                  info.title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: displaySize.height / 100 * 4,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              : RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: info.title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: displaySize.height / 100 * 3,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: info.title2,
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: displaySize.height / 100 * 3.5,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ]),
+                ),
         ],
       ),
     );
