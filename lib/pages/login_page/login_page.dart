@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+var loginController = TextEditingController();
+var passwordController = TextEditingController();
+
 String login = '', password = '';
 
 class LoginPage extends StatefulWidget {
@@ -8,6 +11,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var displaySize = MediaQuery.of(context).size;
@@ -25,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Container(
+            height: displaySize.height / 100 * 5.5,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -36,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
               top: displaySize.height / 100 * 3,
             ),
             child: TextField(
+              controller: loginController,
               decoration: InputDecoration(
                 hintText: 'LogIn',
                 hintStyle: TextStyle(color: Colors.grey.shade700),
@@ -44,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Container(
+            height: displaySize.height / 100 * 5.5,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               border: Border.all(width: 1, color: Colors.grey),
@@ -55,6 +66,7 @@ class _LoginPageState extends State<LoginPage> {
               top: displaySize.height / 100 * 2,
             ),
             child: TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                 hintText: 'Password',
                 hintStyle: TextStyle(color: Colors.grey.shade700),
@@ -63,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Container(
+            height: displaySize.height / 100 * 8.5,
             padding: EdgeInsets.symmetric(
               horizontal: displaySize.width / 100 * 6,
               vertical: displaySize.height / 100 * 2,
