@@ -2,4 +2,4 @@
 
 This is a medical app
 
-images.githubusercontent.com/80413744/140618179-c0af395b-fcd1-4a05-84cb-d464cf893a92.png)
+![Simulator Screen Shot - iPhone 12 - 2021-11-06 at 22 17 42](https://user-images.githubusercontent.com/80413744/140618339-1aee2bdd-f942-45d6-80eb-4981e822ecfd.png)
