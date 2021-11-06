@@ -2,4 +2,6 @@
 
 This is a medical app
 
-![Simulator Screen Shot - iPhone 12 - 2021-11-06 at 22 17 42](https://user-images.githubusercontent.com/80413744/140618339-1aee2bdd-f942-45d6-80eb-4981e822ecfd.png)
+
+
+<img width="180" alt="Снимок экрана 2021-11-06 в 22 26 12" src="https://user-images.githubusercontent.com/80413744/140618426-639bab3d-a0b1-44e6-b7ca-15ec7da291b2.png">
