@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tep_app/recources/recources.dart';
-import 'package:flutter_svg/avd.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ChatPage extends StatefulWidget {
@@ -43,7 +42,7 @@ class _ChatPageState extends State<ChatPage> {
               Expanded(
                 flex: 3,
                 child: Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   margin: EdgeInsets.all(displaySize.width / 100 * 2),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -79,6 +78,44 @@ class _ChatPageState extends State<ChatPage> {
               )
             ],
           ),
+        ),
+      );
+    }
+
+    Widget _doctor(Doctor doctor) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        height: displaySize.height / 100 * 20,
+        margin: const EdgeInsets.only(bottom: 10),
+        decoration: BoxDecoration(
+          color: Colors.purple.withOpacity(0.4),
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  doctor.name,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                ),
+                const Text('Ish vaqti'),
+                const Text('9:00-17:00')
+              ],
+            ),
+            Center(
+              child: CircleAvatar(
+                radius: displaySize.width / 100 * 10,
+                backgroundImage: AssetImage(doctor.image),
+              ),
+            )
+          ],
         ),
       );
     }
@@ -175,13 +212,47 @@ class _ChatPageState extends State<ChatPage> {
                         ),
                       ],
                     ),
-                  )
-
-                  // SliverList(
-                  //   delegate: SliverChildBuilderDelegate(
-                  //     (BuildContext context, int index) {},
-                  //   ),
-                  // ),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        SizedBox(
+                          height: displaySize.height / 100 * 10,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Shifokorlar',
+                                    style: TextStyle(
+                                        fontSize: displaySize.width / 100 * 8,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      "Hammasi >",
+                                      style: TextStyle(
+                                          color: Colors.purple.shade700),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      listDoctors.map((e) => _doctor(e)).toList(),
+                    ),
+                  ),
                 ],
               ),
             ),
