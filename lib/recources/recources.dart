@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:tep_app/network/get_from_internet.dart';
 
 class Species {
   String name, icon;
@@ -19,22 +21,48 @@ List<Species> listSpecies = [
 ];
 
 class Doctor {
-  String name, image;
+  String name, image, surname, age;
   TypeDoctor type;
-  Doctor(this.name, this.image, this.type);
+  Doctor(
+      {required this.name,
+      required this.surname,
+      required this.age,
+      required this.image,
+      required this.type});
+  factory Doctor.fromMap(Map<String, dynamic> map) {
+    late TypeDoctor type;
+    switch (map['type']) {
+      case '0':
+        {
+          type = TypeDoctor.All;
+          break;
+        }
+      case '1':
+        {
+          type = TypeDoctor.KozDoctori;
+          break;
+        }
+      case '2':
+        {
+          type = TypeDoctor.Lor;
+          break;
+        }
+      case '3':
+        {
+          type = TypeDoctor.TishDoctori;
+          break;
+        }
+    }
+    return Doctor(
+        name: map['name'],
+        surname: map['surname'],
+        age: map['age'],
+        image: map['image'],
+        type: type);
+  }
 }
 
-var listDoctors = <Doctor>[
-  Doctor('Akbar', 'assets/images/doctor1.jpg', TypeDoctor.KozDoctori),
-  Doctor('Azimjon', 'assets/images/doctor2.jpg', TypeDoctor.Lor),
-  Doctor('Madina', 'assets/images/doctor3.jpg', TypeDoctor.TishDoctori),
-  Doctor('Akbar', 'assets/images/doctor1.jpg', TypeDoctor.KozDoctori),
-  Doctor('Azimjon', 'assets/images/doctor2.jpg', TypeDoctor.Lor),
-  Doctor('Madina', 'assets/images/doctor3.jpg', TypeDoctor.TishDoctori),
-  Doctor('Akbar', 'assets/images/doctor1.jpg', TypeDoctor.KozDoctori),
-  Doctor('Azimjon', 'assets/images/doctor2.jpg', TypeDoctor.Lor),
-  Doctor('Madina', 'assets/images/doctor3.jpg', TypeDoctor.TishDoctori),
-];
+var listDoctors = <Doctor>[];
 
 enum TypeDoctor { TishDoctori, Lor, KozDoctori, All }
 
@@ -51,4 +79,15 @@ class User {
   User(this.name, this.surname, this.age, this.image);
 }
 
-var user1 = User('Diyorjon', 'Nasriddinov', 19, 'assets/images/avatar2.png');
+var user1 = User('Yusufjon', 'Toshpulatov', 19, 'assets/images/avatar2.png');
+
+Future<void> getInfo() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  var list = await Api.getInfo();
+  if (listDoctors.isEmpty) {
+    for (var e in list) {
+      listDoctors.add(Doctor.fromMap(e));
+    }
+  }
+}

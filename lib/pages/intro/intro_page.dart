@@ -44,7 +44,7 @@ class _IntroPageState extends State<IntroPage> {
   Widget build(BuildContext context) {
     var displaySize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.purple.shade600,
+      backgroundColor: Colors.teal,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -119,8 +119,8 @@ class _IntroPageState extends State<IntroPage> {
 }
 
 class PageWidget extends StatelessWidget {
-  InfoPage info;
-  PageWidget({Key? key, required this.info}) : super(key: key);
+  final InfoPage info;
+  const PageWidget({Key? key, required this.info}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +163,7 @@ class PageWidget extends StatelessWidget {
                     TextSpan(
                       text: info.title2,
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Colors.orange,
                         fontSize: displaySize.height / 100 * 3.5,
                         fontWeight: FontWeight.bold,
                       ),
@@ -173,6 +173,5 @@ class PageWidget extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

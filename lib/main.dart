@@ -5,20 +5,20 @@ import 'pages/home_page.dart';
 import 'pages/intro/intro_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: 'home_page',
+      initialRoute: 'intro_page',
       routes: {
         'intro_page': (context) => const IntroPage(),
         'home_page': (context) => const HomePage(),
-        'login_page': (context) => LoginPage(),
+        'login_page': (context) => const LoginPage(),
         'chat_page': (context) => const ChatPage(),
       },
     );

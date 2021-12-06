@@ -29,6 +29,13 @@
             {
               "client_id": "712622845147-0vgb3p4nasigt6hlgn647t80j52s3mku.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "712622845147-5670u31nentir7kr43maq9s0kj27vl2f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tepApp"
+              }
             }
           ]
         }

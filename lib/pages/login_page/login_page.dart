@@ -6,6 +6,8 @@ var passwordController = TextEditingController();
 String login = '', password = '';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }

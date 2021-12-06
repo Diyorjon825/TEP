@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tep_app/controller/home_page_controller.dart';
+import 'package:tep_app/network/get_from_internet.dart';
 import 'package:tep_app/recources/recources.dart';
 
 class Home extends StatefulWidget {
@@ -10,56 +12,39 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //
-  //          varable
-  //
-  var _listDoctors = <Doctor>[];
-  int selectedPage = 0;
-  int currentSpecies = 0;
-  //
-  //        functions
-  //
-  //
+  final _model = HomePageModel();
+  @override
+  Widget build(BuildContext context) {
+    return HomePageProvider(child: const _MainWidget(), model: _model);
+  }
+}
 
-  void controllerListener() {
-    //        search function
-    final text = controllerText.text;
-    if (text.isNotEmpty) {
-      _listDoctors = listDoctors
-          .where((element) =>
-              element.name.toLowerCase().contains(text.toLowerCase()))
-          .toList();
-      setState(() {});
-    } else {
-      setState(() {
-        _listDoctors = listDoctors;
-      });
-    }
+class _MainWidget extends StatefulWidget {
+  const _MainWidget({Key? key}) : super(key: key);
+
+  @override
+  State<_MainWidget> createState() => _MainWidgetState();
+}
+
+class _MainWidgetState extends State<_MainWidget> {
+  var controllerText = TextEditingController();
+
+  void listener() {
+    HomePageProvider.of(context)?.model.controllerListener(controllerText);
   }
 
-  void sortDoctorsWithButtons(int i) {
-    //          sort doctors with buttons
-    if (listSpecies[i].type == TypeDoctor.All) {
-      _listDoctors = listDoctors;
-    } else {
-      _listDoctors = listDoctors
-          .where((element) => listSpecies[i].type == element.type)
-          .toList();
-    }
-    setState(() {
-      currentSpecies = i;
-    });
+  void getDoctors() async {
+    await getInfo();
+    setState(() {});
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    controllerText.addListener(controllerListener);
-    _listDoctors = listDoctors;
+    controllerText.addListener(listener);
+    getDoctors();
   }
 
-  var controllerText = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var displaySize = MediaQuery.of(context).size;
@@ -88,7 +73,7 @@ class _HomeState extends State<Home> {
             child: TextField(
               controller: controllerText,
               decoration: InputDecoration(
-                hintText: 'Mutahasisni topish',
+                hintText: 'Mutaxassisni topish',
                 hintStyle: TextStyle(fontSize: displaySize.height / 100 * 2),
                 icon: const Icon(Icons.search),
                 border: InputBorder.none,
@@ -102,7 +87,7 @@ class _HomeState extends State<Home> {
     Widget _speciesbuilder(int i) {
       return GestureDetector(
         onTap: () {
-          sortDoctorsWithButtons(i);
+          HomePageProvider.of(context)?.model.sortDoctorsWithButtons(i);
         },
         child: Container(
           width: displaySize.width / 100 * 20,
@@ -113,7 +98,7 @@ class _HomeState extends State<Home> {
             ),
             border: Border.all(
               width: 1.5,
-              color: (currentSpecies == i)
+              color: (HomePageProvider.of(context)?.model.currentSpecies == i)
                   ? SystemColors.secondColor
                   : Colors.grey.shade400,
             ),
@@ -129,16 +114,20 @@ class _HomeState extends State<Home> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       width: 1,
-                      color: (currentSpecies == i)
-                          ? SystemColors.secondColor
-                          : Colors.grey.shade400,
+                      color:
+                          (HomePageProvider.of(context)?.model.currentSpecies ==
+                                  i)
+                              ? SystemColors.secondColor
+                              : Colors.grey.shade400,
                     ),
                   ),
                   child: SvgPicture.asset(
                     listSpecies[i].icon,
-                    color: (currentSpecies == i)
-                        ? SystemColors.secondColor
-                        : Colors.grey.shade400,
+                    color:
+                        (HomePageProvider.of(context)?.model.currentSpecies ==
+                                i)
+                            ? SystemColors.secondColor
+                            : Colors.grey.shade400,
                   ),
                 ),
               ),
@@ -202,7 +191,7 @@ class _HomeState extends State<Home> {
             Center(
               child: CircleAvatar(
                 radius: displaySize.width / 100 * 10,
-                backgroundImage: AssetImage(doctor.image),
+                backgroundImage: NetworkImage(doctor.image),
               ),
             ),
           ],
@@ -218,6 +207,7 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               height: displaySize.height / 100 * 14.4,
               child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (_, index) => _speciesbuilder(index),
                 scrollDirection: Axis.horizontal,
                 itemCount: listSpecies.length,
@@ -229,6 +219,7 @@ class _HomeState extends State<Home> {
     }
 
     return CustomScrollView(
+      physics: const BouncingScrollPhysics(),
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       slivers: [
         _appBar(),
@@ -286,7 +277,11 @@ class _HomeState extends State<Home> {
         ),
         SliverList(
           delegate: SliverChildListDelegate(
-            _listDoctors.map((e) => _doctor(e)).toList(),
+            HomePageProvider.of(context)!
+                .model
+                .localListDoctors
+                .map((e) => _doctor(e))
+                .toList(),
           ),
         ),
       ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:tep_app/recources/recources.dart';
 
 import 'chat/chat.dart';
+import 'chat/chats.dart';
 import 'home/home.dart';
 import 'profile_page/profile_page.dart';
 
@@ -21,13 +21,14 @@ class _HomePageState extends State<HomePage> {
   //
   //        Widgets
   //
+
   @override
   Widget build(BuildContext context) {
     List<Widget> listPages = [
       //            first page
       const Home(),
       //          second page
-      const ChatPage(),
+      const ChatsPage(),
       //          third page
       const ProfilePage(),
     ];
